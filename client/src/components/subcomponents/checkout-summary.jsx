@@ -31,13 +31,13 @@ const CheckOutSummary = ({ children }) => {
         <Flex paddingLeft="8px" justify="space-between">
           <Text>Normal</Text>
           <Text>
-            {checkoutData?.numberOfTickets * checkoutData?.pricePerTicket}
+           {subTotal}
           </Text>
         </Flex>
         <Flex paddingLeft="8px" justify="space-between">
           <Text>Sub Total</Text>
           <Text>
-            {checkoutData?.numberOfTickets * checkoutData?.pricePerTicket}
+            {subTotal}
           </Text>
         </Flex>
         <Flex paddingLeft="8px" justify="space-between">
