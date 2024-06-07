@@ -1,43 +1,23 @@
 import { Flex, Box } from "@chakra-ui/react";
 import TicketBox from "../components/subcomponents/ticket-box";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentMovie, getMovieStatus } from "../reducers/movie.reducer";
-import { getCurrentMovie } from "../reducers/movie.reducer";
 import CardComponent from "../components/subcomponents/card-component";
-
+import { getMovieDetailAsync } from "../state/movies/movieFetchingSlice";
+import { getAllMoviesAsync } from "../state/movies/movieFetchingSlice";
+import { useEffect } from "react";
 const EventDetails = ({ children, ...props }) => {
   const dispatch = useDispatch();
 
   let { imdbID } = useParams();
 
-  const movieStatus = useSelector(getMovieStatus);
-  console.log("movie status", movieStatus);
-  const movieCurrent = useSelector(selectCurrentMovie);
-
-
-  // const handleDispatchResult = (movie)=>{
-  //   setCurrentMovie(movie)
-  // }
+  const movieDetailState = useSelector((state) => state.movies.movieDetail);
+  const allMoviesState = useSelector((state) => state.movies.allMovies);
+  console.log("movie detail state", movieDetailState);
+  console.log("all movies", allMoviesState.Search);
   useEffect(() => {
-    if (movieStatus === "idle") {
-      dispatch(getCurrentMovie(imdbID));
-    }
-  }, [movieStatus, dispatch]);
-
-  // const currentMovieDetails = useSelector((root) => {
-  //   console.log("in use selector in userp rofile page", root.movie);
-  //   // return root.movie.currentMovie;
-  // });
-
-  //  useEffect(() => {
-  //    dispatch(getCurrentMovie(imdbID)).then((res)=>{
-  //     console.log("dispatch of get current movie", res.payload);
-  //     // handleDispatchResult(res.payload);
-  //    });
-
-  //  }, []);
+    dispatch(getMovieDetailAsync(imdbID));
+  }, []);
 
   return (
     <>
@@ -48,8 +28,7 @@ const EventDetails = ({ children, ...props }) => {
         bg={["primary.500", "primary.500", "transparent", "transparent"]}
       >
         <Box>
-        <CardComponent item={movieCurrent}></CardComponent>
-        
+          <CardComponent item={movieDetailState}></CardComponent>
         </Box>
 
         <Box>

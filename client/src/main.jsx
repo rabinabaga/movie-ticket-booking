@@ -7,7 +7,7 @@ import "bootstrap"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Provider } from 'react-redux'
-import {store} from './store'
+import {store} from './state/store'
 import { ChakraProvider } from "@chakra-ui/react";
 
 

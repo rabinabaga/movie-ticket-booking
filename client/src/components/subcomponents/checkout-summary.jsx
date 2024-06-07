@@ -1,12 +1,11 @@
 import { Box, Text, Flex, Button } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 
-import {getCurrentMovie, selectCurrentMovie} from "../../reducers/movie.reducer"
 import { useNavigate } from "react-router-dom";
 
 const CheckOutSummary = ({children}) => {
-     const movieCurrent = useSelector(selectCurrentMovie);
       const navigate = useNavigate();
+      const movieDetailState = useSelector((state) => state.movies.movieDetail);
 
     return (
       <>
@@ -14,7 +13,7 @@ const CheckOutSummary = ({children}) => {
           <Text fontSize={{ base: "20px", md: "18px" }}>Checkout Summary</Text>
           <Text fontSize={{ base: "20px", md: "18px" }}>
             {" "}
-            {movieCurrent?.Title}
+            {movieDetailState?.Title}
           </Text>
           <span>concert</span> <span>Kathmandu.Nepal</span>
           <Flex paddingLeft="8px" justify="space-between">

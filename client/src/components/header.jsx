@@ -1,7 +1,6 @@
 import { Image, Flex, Button, HStack, chakra } from "@chakra-ui/react";
 import Logo from "../logo.jpg";
 import React, { useState } from "react";
-import MobileDrawer from "./mobile-drawer";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const CTA = "Get Started";
@@ -43,7 +42,6 @@ export default function Header() {
 
         <HStack>
           <Button>{CTA}</Button>
-          <MobileDrawer />
         </HStack>
       </Flex>
     </chakra.header>
