@@ -2,12 +2,13 @@ import { Flex, Text, Button, Center, Box, ButtonGroup } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import { CheckoutDataState } from "../../context/ticket";
 const TicketBox = () => {
   const movieDetailState = useSelector((state) => state.movies.movieDetail);
   const navigate = useNavigate();
-  const [total, setTotal] = useState(1000);
-  console.log("total", total);
+  const { checkoutData, setCheckoutData } = CheckoutDataState();
+  console.log("checkout data", checkoutData);
+
   return (
     <>
       <Flex direction="column" gap="20px">
@@ -27,20 +28,38 @@ const TicketBox = () => {
           <Flex direction="row">
             <Flex direction="column">
               <Text>1X Ticket(s)</Text>
-              <Box>USD $500.00</Box>
+              <Box>Rs.{movieDetailState?.price}</Box>
             </Flex>
             <ButtonGroup spacing="2">
-              <Button variant="solid" colorScheme="blackAlpha">
+              <Button
+                variant="solid"
+                colorScheme="blackAlpha"
+                onClick={() => {
+                  if (checkoutData.numberOfTickets >= 1) {
+                    setCheckoutData((prev)=>{
+                      return {
+                        ...prev,
+                        numberOfTickets: prev.numberOfTickets - 1,
+                      };
+                    })
+                  }
+                }}
+              >
                 -
               </Button>
               <Center bg="black" h="40px" p={4} color="white">
-                2
+                {checkoutData?.numberOfTickets}
               </Center>
               <Button
                 variant="solid"
                 colorScheme="pink"
                 onClick={() => {
-                  navigate("/");
+                  setCheckoutData((prev) => {
+                    return {
+                      ...prev,
+                      numberOfTickets: prev.numberOfTickets + 1,
+                    };
+                  });
                 }}
               >
                 +
@@ -55,7 +74,8 @@ const TicketBox = () => {
             navigate(`/${movieDetailState?.Title}/order-confirmation`);
           }}
         >
-          Check out for ${total}
+          Check out for{" "}
+          {movieDetailState?.price * checkoutData?.numberOfTickets}
         </Button>
       </Flex>
     </>

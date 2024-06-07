@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Provider } from 'react-redux'
 import {store} from './state/store'
 import { ChakraProvider } from "@chakra-ui/react";
+import CheckoutDataProvider from './context/ticket'
 
 
 
@@ -16,7 +17,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <ChakraProvider>
-        <RoutingComponent />
+        <CheckoutDataProvider>
+          <RoutingComponent />
+        </CheckoutDataProvider>
       </ChakraProvider>
     </Provider>
   </React.StrictMode>
