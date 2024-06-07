@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { CheckoutDataState } from "../../context/ticket";
 const TicketBox = () => {
   const movieDetailState = useSelector((state) => state.movies.movieDetail);
-  const navigate = useNavigate();
   const { checkoutData, setCheckoutData } = CheckoutDataState();
+  const navigate = useNavigate();
   console.log("checkout data", checkoutData);
   const handleDateChange = (event) => {
     setCheckoutData((prev) => {
@@ -85,7 +85,7 @@ const TicketBox = () => {
           isDisabled={checkoutData?.numberOfTickets===0}
         >
           Check out for{" "}
-          {movieDetailState?.price * checkoutData?.numberOfTickets}
+          {(movieDetailState?.price * checkoutData?.numberOfTickets).toFixed(2)}
         </Button>
       </Flex>
     </>

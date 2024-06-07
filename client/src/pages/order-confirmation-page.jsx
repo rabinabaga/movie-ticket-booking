@@ -7,12 +7,13 @@ import {
   FormErrorMessage,
   FormHelperText,
 } from "@chakra-ui/react";
+import { CheckoutDataState } from "../context/ticket";
+import { useSelector } from "react-redux";
 
 
 export const OrderConfirmationPage = () => {
-    const navigate = useNavigate();
-    const params = useParams();
-    const movie_name = params.movie_name;
+    const movieDetailState = useSelector((state) => state.movies.movieDetail);
+    const { checkoutData, setCheckoutData } = CheckoutDataState();
     
     return (
       <>
@@ -61,12 +62,7 @@ export const OrderConfirmationPage = () => {
                   <Input type="number" />
                 </FormControl>
 
-                {/* // m={2} refers to the value of `theme.space[2]` */}
-                {/* <Box m={2}>Tomato</Box>
-                {/* // You can also use custom values */}
-                {/* <Box maxW="960px" mx="auto" /> */}
-                {/* // sets margin `8px` on all viewports and `12px` from the first
-                breakpoint and up */}
+              
               </Flex>
             </Flex>
 

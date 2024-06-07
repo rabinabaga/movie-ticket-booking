@@ -6,11 +6,12 @@ import CardComponent from "../components/subcomponents/card-component";
 import { getMovieDetailAsync } from "../state/movies/movieFetchingSlice";
 import { getAllMoviesAsync } from "../state/movies/movieFetchingSlice";
 import { useEffect } from "react";
+import { CheckoutDataState } from "../context/ticket";
 const EventDetails = ({ children, ...props }) => {
   const dispatch = useDispatch();
 
   let { imdbID } = useParams();
-
+const {checkoutData, setCheckoutData} = CheckoutDataState();
   const movieDetailState = useSelector((state) => state.movies.movieDetail);
   const allMoviesState = useSelector((state) => state.movies.allMovies);
   console.log("movie detail state", movieDetailState);
@@ -18,6 +19,15 @@ const EventDetails = ({ children, ...props }) => {
   useEffect(() => {
     dispatch(getMovieDetailAsync(imdbID));
   }, []);
+  useEffect(() => {
+    setCheckoutData((prev) => {
+      return {
+        ...prev,
+        pricePerTicket: movieDetailState?.price,
+
+      };
+    });
+  }, [movieDetailState]);
 
   return (
     <>

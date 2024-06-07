@@ -34,21 +34,6 @@ const RoutingComponent = () => {
             <Route path="/your-invoice" element={<BasicDocument/>}></Route>
             <Route path="/:movie_name/order-confirmation" element={<OrderConfirmationPage></OrderConfirmationPage>}></Route>
           </Route>
-          {/* <Route path="/admin" element={<CheckPermission role="admin" Component={<AdminLayout/>}/>}> */}
-          {/* <Route path="admin" element={<CheckPermission role="admin" Component={<AdminLayout/>}/>}>
-                        <Route index element={<AdminPage/>}></Route>
-                    </Route> */}
-          {/* <Route path="/admin" element={<h1>admin page</h1>}> */}
-
-          {/* </Route> */}
-
-          {/* <Route path="/user/:profile_username" element={<UserProfileLayout/>}>
-                        <Route index element={<UserProfilePage/>}></Route>
-                    </Route>
-                     */}
-          {/* <Route path="/:profile_username" element={<UserProfileLayout/>}>
-                        <Route index element={<UserProfilePage/>}></Route>
-                    </Route> */}
         </Routes>
       </BrowserRouter>
     </div>
