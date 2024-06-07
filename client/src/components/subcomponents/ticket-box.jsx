@@ -8,6 +8,11 @@ const TicketBox = () => {
   const navigate = useNavigate();
   const { checkoutData, setCheckoutData } = CheckoutDataState();
   console.log("checkout data", checkoutData);
+  const handleDateChange = (event) => {
+    setCheckoutData((prev) => {
+      return { ...prev, date: event.target.value };
+    });
+  };
 
   return (
     <>
@@ -16,7 +21,11 @@ const TicketBox = () => {
           <Text fontWeight="bold">Event Details</Text>
           <Flex style={{ color: "black" }} direction="column">
             <Box>
-              <input type="date" defaultValue="12/04/2023"></input>
+              <input
+                type="date"
+                onChange={handleDateChange}
+                value={checkoutData?.date}
+              />
             </Box>
             <Box style={{ color: "white" }}>
               <Text marginTop={4}>Kathmandu, Nepal</Text>
@@ -36,12 +45,12 @@ const TicketBox = () => {
                 colorScheme="blackAlpha"
                 onClick={() => {
                   if (checkoutData.numberOfTickets >= 1) {
-                    setCheckoutData((prev)=>{
+                    setCheckoutData((prev) => {
                       return {
                         ...prev,
                         numberOfTickets: prev.numberOfTickets - 1,
                       };
-                    })
+                    });
                   }
                 }}
               >
@@ -73,6 +82,7 @@ const TicketBox = () => {
           onClick={() => {
             navigate(`/${movieDetailState?.Title}/order-confirmation`);
           }}
+          isDisabled={checkoutData?.numberOfTickets===0}
         >
           Check out for{" "}
           {movieDetailState?.price * checkoutData?.numberOfTickets}
