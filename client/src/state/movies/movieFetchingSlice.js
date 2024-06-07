@@ -2,15 +2,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-    allMovies:[],
+  allMovies: [],
   movieDetail: null,
 };
 
 const getMovieDetailSlice = createSlice({
   name: "movieFetching",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getMovieDetailAsync.pending, () => {
@@ -18,11 +17,13 @@ const getMovieDetailSlice = createSlice({
       })
       .addCase(getMovieDetailAsync.fulfilled, (state, action) => {
         state.movieDetail = action.payload;
-      }).addCase(getAllMoviesAsync.pending,()=>{
-        console.log("get all movies");
-      }).addCase(getAllMoviesAsync.fulfilled,(state,action)=>{
-        state.allMovies = action.payload
       })
+      .addCase(getAllMoviesAsync.pending, () => {
+        console.log("get all movies");
+      })
+      .addCase(getAllMoviesAsync.fulfilled, (state, action) => {
+        state.allMovies = action.payload;
+      });
   },
 });
 
@@ -32,7 +33,12 @@ export const getMovieDetailAsync = createAsyncThunk(
     const response = await axios.get(
       `https://www.omdbapi.com/?apiKey=3c96e044&page=1&i=${movieId}`
     );
-    console.log("get movie detail", response.data)
+     function generateRandomPrice() {
+       // Generate a random price between 400 rupees and 200 rupees for demonstration purposes
+       return (Math.random() * (400 - 200) + 5).toFixed(2);
+     }
+    response.data.price = generateRandomPrice();
+    console.log("get movie detail with price", response.data);
     return response.data;
   }
 );
@@ -43,6 +49,14 @@ export const getAllMoviesAsync = createAsyncThunk(
       "https://www.omdbapi.com/?apiKey=3c96e044&page=1&s=batman"
     );
     console.log("response data", response);
+    function generateRandomPrice() {
+      // Generate a random price between 400 rupees and 200 rupees for demonstration purposes
+      return (Math.random() * (400 - 200) + 5).toFixed(2);
+    }
+    response.data.Search.forEach((movie) => {
+      movie.price = generateRandomPrice();
+    });
+    console.log("response.data.serac.price", response.data.Search[0].price);
     return response.data.Search;
   }
 );

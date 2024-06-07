@@ -1,5 +1,5 @@
 import { Box, Text, Flex, Button } from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 
